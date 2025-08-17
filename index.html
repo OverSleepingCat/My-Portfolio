@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+<link rel="icon" type="image/x-icon" href="Assets/icon.webp">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <title>Brenn Portfolio - Full Stack Developer</title>
+</head>
+<body>
+  <!--Nav-->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <span class="logo-icon"><img src="Assets/icon.webp" height="50px"></span>
+        <span class="logo-text">Brenn Joezel</span>
+      </div>
+      <ul class="nav-menu" id="nav-menu">
+        <li class="nav-item">
+          <a href="#home" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item">
+          <a href="#about" class="nav-link">About</a>
+        </li>
+        <li class="nav-item">
+          <a href="#skills" class="nav-link">Skills</a>
+        </li>
+        <li class="nav-item">
+          <a href="#projects" class="nav-link">Projects</a>
+        </li>
+        <li class="nav-item">
+          <a href="#contact" class="nav-link">Contact</a>
+        </li>
+      </ul>
+      <div class="hamburger" id="hamburger">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </div>
+    </div>
+  </nav>
+
+  <!--Hero-->
+  <section id="home" class="hero">
+    <div class="hero-slider">
+      <div class="slide active" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+        <div class="slide-content">
+          <h1 class="hero-title">Full Stack Developer</h1>
+          <p class="hero-subtitle">Creating beautiful and functional web experiences</p>
+        </div>
+      </div>
+      <div class="slide" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+        <div class="slide-content">
+          <h1 class="hero-title">UI/UX Designer</h1>
+          <p class="hero-subtitle">Designing intuitive and engaging user interfaces</p>
+        </div>
+      </div>
+      <div class="slide" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+        <div class="slide-content">
+          <h1 class="hero-title">Problem Solver</h1>
+          <p class="hero-subtitle">Turning ideas into digital reality</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-navigation">
+      <button class="hero-arrow hero-prev" id="hero-prev">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      <button class="hero-arrow hero-next" id="hero-next">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+
+    <div class="hero-dots">
+      <span class="hero-dot active" data-slide="0"></span>
+      <span class="hero-dot" data-slide="1"></span>
+      <span class="hero-dot" data-slide="2"></span>
+    </div>
+
+    <div class="scroll-indicator">
+      <div class="scroll-arrow">
+        <i class="fas fa-chevron-down"></i>
+      </div>
+    </div>
+  </section>
+
+  <!-- AboutSection -->
+  <section id="about" class="about">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">About Me</h2>
+        <p class="section-subtitle">Passionate developer with a love for creating amazing digital experiences</p>
+      </div>
+      <div class="about-content">
+        <div class="about-text">
+          <p>Hello! I'm Brenn, a passionate full-stack developer with expertise in modern web technologies. I love creating beautiful, functional, and user-friendly applications that solve real-world problems.</p>
+          <p>With a strong foundation in both frontend and backend development, I enjoy working on projects that challenge me to learn and grow. I'm always excited to collaborate on innovative projects and bring creative ideas to life.</p>
+          <div class="about-stats">
+            <div class="stat">
+              <div class="stat-number">50+</div>
+              <div class="stat-label">Projects Completed</div>
+            </div>
+            <div class="stat">
+              <div class="stat-number">3+</div>
+              <div class="stat-label">Years Experience</div>
+            </div>
+            <div class="stat">
+              <div class="stat-number">100%</div>
+              <div class="stat-label">Client Satisfaction</div>
+            </div>
+          </div>
+        </div>
+        <div class="about-image">
+            <div class="image-placeholder">
+               <img src="Assets/profile.jpg" alt="Profile Picture">
+            </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SkillsSection -->
+  <section id="skills" class="skills">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Skills & Expertise</h2>
+        <p class="section-subtitle">Technologies and tools I work with</p>
+      </div>
+      <div class="skills-content">
+        <div class="skills-categories">
+          <div class="skill-category">
+            <h3 class="category-title">Frontend Development</h3>
+            <div class="skill-buttons">
+              <button class="skill-btn active" data-skill="html">HTML</button>
+              <button class="skill-btn" data-skill="css">CSS</button>
+              <button class="skill-btn" data-skill="javascript">JavaScript</button>
+              <button class="skill-btn" data-skill="react">Shopify</button>
+            </div>
+          </div>
+          <div class="skill-category">
+            <h3 class="category-title">Backend Development</h3>
+            <div class="skill-buttons">
+              <button class="skill-btn" data-skill="php">PHP</button>
+              <button class="skill-btn" data-skill="python">Python</button>
+              <button class="skill-btn" data-skill="sql">SQL</button>
+              <button class="skill-btn" data-skill="nodejs">JSON</button>
+            </div>
+          </div>
+          <div class="skill-category">
+            <h3 class="category-title">Design Tools</h3>
+            <div class="skill-buttons">
+              <button class="skill-btn" data-skill="figma">Figma</button>
+              <button class="skill-btn" data-skill="photoshop">Photoshop</button>
+              <button class="skill-btn" data-skill="illustrator">Canva</button>
+            </div>
+          </div>
+        </div>
+        <div class="skill-display">
+          <div class="skill-info" id="skill-info">
+            <div class="skill-icon">
+              <i class="fab fa-html5"></i>
+            </div>
+            <h4 class="skill-name">HTML</h4>
+            <p class="skill-description">The foundation of web development. HTML structures content and provides semantic meaning to web pages, ensuring accessibility and SEO optimization.</p>
+            <div class="skill-level">
+              <div class="skill-bar">
+                <div class="skill-progress" style="width: 95%"></div>
+              </div>
+              <span class="skill-percentage">95%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ProjectsSection -->
+  <section id="projects" class="projects">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Featured Projects</h2>
+        <p class="section-subtitle">Some of my recent work and personal projects</p>
+      </div>
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-image">
+            <img src="Assets/todo.png" alt="To-Do List App">
+            <div class="project-overlay">
+              <div class="project-links">
+                <a href="Projects/Project01/To-Do.html" target="_blank" class="project-link" title="View Live">
+                  <i class="fas fa-external-link-alt"></i>
+                </a>
+                
+                  
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="project-content">
+            <h3 class="project-title">To-Do List App</h3>
+            <p class="project-description">A modern task management tool that helps users stay productive by keeping tasks simple, clear, and accessible.</p>
+            <div class="project-tags">
+            
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-image">
+            <img src="Assets/weather.png" alt="Weather App">
+            <div class="project-overlay">
+              <div class="project-links">
+                <a href="Projects/Project02/weather.html" target="_blank" class="project-link" title="View Live">
+                  <i class="fas fa-external-link-alt"></i>
+                </a>
+                
+                  
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="project-content">
+            <h3 class="project-title">Weather Dashboard (API)</h3>
+            <p class="project-description">Real-time weather application that fetches live data using an external API. Displays forecasts, temperature, and conditions with an intuitive, responsive design.</p>
+            <div class="project-tags">
+             
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-image">
+            <img src="Assets/Tictac.png" alt="Tic-Tac-Toe">
+            <div class="project-overlay">
+              <div class="project-links">
+                <a href="Projects/Project03/TictacToe.html" target="_blank" class="project-link" title="View Live">
+                  <i class="fas fa-external-link-alt"></i>
+                </a>
+                
+                  
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="project-content">
+            <h3 class="project-title">Tic-Tac-Toe (Two Players)</h3>
+            <p class="project-description">Classic two-player game built with interactive logic and smooth animations. Showcases JavaScript game mechanics and responsive UI design.</p>
+            <div class="project-tags">
+             
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-image">
+            <img src="Assets/restaurant.png" alt="Tic-Tac-Toe">
+            <div class="project-overlay">
+              <div class="project-links">
+                <a href="Projects/Project04/Restaurantlanding.html" target="_blank" class="project-link" title="View Live">
+                  <i class="fas fa-external-link-alt"></i>
+                </a>
+                
+                  
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="project-content">
+            <h3 class="project-title">Restaurant Landing Page</h3>
+            <p class="project-description">A visually engaging landing page for a restaurant, designed with clean layouts, responsive styling, and a modern menu showcase for better customer experience.</p>
+            <div class="project-tags">
+              
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-image">
+            <img src="Assets/ecom.png" alt="Writer App">
+            <div class="project-overlay">
+              <div class="project-links">
+                <a href="Projects/Project05/Ecom.html" target="_blank" class="project-link" title="View Live">
+                  <i class="fas fa-external-link-alt"></i>
+                </a>
+                
+                  
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="project-content">
+            <h3 class="project-title">E-Commerce Bookstore</h3>
+            <p class="project-description">A demo online bookstore with shopping cart and checkout features. Implements product browsing, cart management, and a streamlined purchase flow.</p>
+            <div class="project-tags">
+              
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-image">
+            <img src="Assets/thesis.png" alt="Portfolio Website">
+            <div class="project-overlay">
+              <div class="project-links">
+                <a href="Projects/Project06/index.html" target="_blank" class="project-link" title="View Live">
+                  <i class="fas fa-external-link-alt"></i>
+                </a>
+                
+                  
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="project-content">
+            <h3 class="project-title">Thesis Management System</h3>
+            <p class="project-description">A web platform for students and teachers to manage thesis submissions, feedback, and progress tracking. Built for better collaboration and academic workflow.</p>
+            <div class="project-tags">
+            
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ContactSection -->
+
+  <section id="contact" class="contact">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Get In Touch</h2>
+        <p class="section-subtitle">Let's work together on your next project</p>
+      </div>
+      <div class="contact-content">
+        <div class="contact-info">
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div class="contact-details">
+              <h4>Email</h4>
+              <p>brennjoezelc@gmail.com</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-phone"></i>
+            </div>
+            <div class="contact-details">
+              <h4>Phone</h4>
+              <p>09453665224</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div class="contact-details">
+              <h4>Location</h4>
+              <p>Philippines, Batangas</p>
+            </div>
+          </div>
+          <div class="social-links">
+            <a href="https://github.com/OverSleepingCat/SlimeCounter?fbclid=IwY2xjawMOmbJleHRuA2FlbQIxMABicmlkETFuZnBiRFJsUXZYTDU1TFpwAR6D5WJW7NVK2W53p1H8ruABmVkRs9BBkC-QMY4u4xyTQeKv3GpnwkucchDIOA_aem_ohFTOYPEkpVCQVvpdIiwHg" target="_blank" class="social-link">
+              <i class="fab fa-github"></i>
+            </a>
+            </a>
+          </div>
+        </div>
+        <form class="contact-form" id="contact-form">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="subject" required>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+          </div>
+          <button type="submit" class="submit-btn">
+            <span class="btn-text">Send Message</span>
+            <i class="fas fa-paper-plane"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <p>&copy; 2025 Brenn Portfolio. All rights reserved.</p>
+        <p>Designed and developed passion</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scroll to Top Button -->
+  <button class="scroll-to-top" id="scroll-to-top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <!-- Success Message -->
+  <div class="success-message" id="success-message">
+    <i class="fas fa-check-circle"></i>
+    <span>Message sent successfully!</span>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

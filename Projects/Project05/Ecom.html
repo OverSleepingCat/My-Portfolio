@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book Market – E‑commerce Demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      /* Blue theme */
+      --bg: #0b1020;
+      --card: #121a2e;
+      --elev: #182341;
+      --text: #e9f1ff;
+      --muted:#a9b6d4;
+      --brand:#2563eb; /* primary blue */
+      --brand-2:#60a5fa; /* light blue */
+      --ok:#22c55e; --warn:#f59e0b; --err:#ef4444;
+      --ring: 0 0 0 3px rgba(37,99,235,.25);
+      --radius: 16px;
+      --shadow: 0 10px 30px rgba(0,0,0,.35), 0 2px 6px rgba(0,0,0,.25);
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body{
+      margin:0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(1200px 600px at 80% -10%, rgba(37,99,235,.22), transparent 60%),
+                  radial-gradient(900px 500px at -10% 10%, rgba(96,165,250,.18), transparent 60%),
+                  var(--bg);
+      color:var(--text);
+    }
+    a{ color:inherit; text-decoration:none; }
+    .container{ width: min(1200px, 96%); margin: 0 auto; }
+
+    /* Header */
+    header{
+      position: sticky; top:0; z-index: 50;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(8,12,26,.85), rgba(8,12,26,.55));
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .nav{ display:flex; align-items:center; gap:16px; padding:14px 0; }
+    .logo{ display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.4px; font-size:20px; }
+    .logo .emblem{
+      width:28px;height:28px; border-radius:8px; background: conic-gradient(from 200deg, var(--brand), var(--brand-2));
+      box-shadow: 0 0 28px rgba(37,99,235,.45), inset 0 0 18px rgba(96,165,250,.45);
+      display:grid; place-items:center; color:white;
+    }
+    .logo .emblem svg{ filter: drop-shadow(0 2px 6px rgba(0,0,0,.35)); }
+
+    .search{ flex:1; position:relative; }
+    .search input{
+      width:100%; background: var(--card); border:1px solid rgba(255,255,255,.07);
+      color:var(--text); padding:12px 44px; border-radius: 999px; outline:none;
+    }
+    .search input:focus{ box-shadow: var(--ring); border-color: rgba(37,99,235,.45); }
+    .search svg{ position:absolute; left:14px; top:50%; transform: translateY(-50%); opacity:.65; }
+
+    .actions{ display:flex; align-items:center; gap:10px; }
+    .btn{
+      display:inline-flex; align-items:center; gap:8px;
+      background: linear-gradient(180deg, var(--brand), var(--brand-2));
+      color:white; padding:10px 14px; border:none; border-radius: 12px; cursor:pointer; font-weight:600;
+      box-shadow: 0 10px 18px rgba(37,99,235,.25);
+    }
+    .btn.secondary{ background: var(--elev); color:var(--text); box-shadow:none; border:1px solid rgba(255,255,255,.07); }
+    .cart-btn{ position:relative; }
+    .badge{
+      position:absolute; top:-6px; right:-6px; background: var(--brand); color:white; font-size:11px; font-weight:700;
+      min-width:20px; height:20px; display:grid; place-items:center; border-radius:999px; box-shadow: 0 6px 12px rgba(37,99,235,.35);
+    }
+
+    /* Hero */
+    .hero{
+      display:grid; grid-template-columns: 1.2fr .8fr; gap:20px; align-items:center; padding: 28px 0 10px;
+    }
+    .hero-card{ background:linear-gradient(180deg, rgba(37,99,235,.10), rgba(96,165,250,.08)), var(--card); border:1px solid rgba(255,255,255,.08); border-radius: var(--radius); padding:24px; box-shadow: var(--shadow); }
+    .hero h1{ margin:0 0 8px; font-size: clamp(26px, 4vw, 44px); }
+    .hero p{ margin:0 0 16px; color:var(--muted); }
+
+    /* Products grid */
+    .grid{ display:grid; grid-template-columns: repeat(4, 1fr); gap:16px; }
+    @media (max-width: 1024px){ .grid{ grid-template-columns: repeat(3, 1fr); } .hero{ grid-template-columns: 1fr; } }
+    @media (max-width: 720px){ .grid{ grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 520px){ .grid{ grid-template-columns: 1fr; } }
+
+    .card{ background: var(--card); border:1px solid rgba(255,255,255,.06); border-radius: var(--radius); overflow:hidden; box-shadow: var(--shadow); display:flex; flex-direction:column; }
+    .thumb{ aspect-ratio: 16/11; width:100%; background: linear-gradient(135deg, rgba(37,99,235,.25), rgba(96,165,250,.18)); display:flex; align-items:center; justify-content:center; }
+    .thumb svg{ opacity:.7; }
+    .content{ padding:14px; display:flex; flex-direction:column; gap:8px; }
+    .title{ font-weight:700; }
+    .price{ font-weight:800; background: linear-gradient(90deg, var(--brand), var(--brand-2)); background-clip:text; -webkit-background-clip:text; color:transparent; }
+    .muted{ color:var(--muted); font-size: 13px; }
+    .row{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
+    .qty{ display:flex; align-items:center; gap:8px; }
+    .qty button{ width:28px; height:28px; border-radius:8px; background:var(--elev); border:1px solid rgba(255,255,255,.07); color:var(--text); font-weight:800; }
+
+    /* Cart Drawer */
+    .drawer{ position:fixed; inset:0; pointer-events:none; }
+    .drawer.open{ pointer-events:auto; }
+    .backdrop{ position:absolute; inset:0; background: rgba(0,0,0,.6); opacity:0; transition:.25s; }
+    .drawer.open .backdrop{ opacity:1; }
+    .panel{
+      position:absolute; top:0; right:-420px; width:min(420px, 96%); height:100%; background: var(--card);
+      border-left:1px solid rgba(255,255,255,.09); box-shadow: var(--shadow); transition:.3s; display:flex; flex-direction:column;
+    }
+    .drawer.open .panel{ right:0; }
+    .panel header{ position:sticky; top:0; background: var(--card); padding:14px; border-bottom:1px solid rgba(255,255,255,.06); }
+    .panel .items{ flex:1; overflow:auto; padding:12px; display:flex; flex-direction:column; gap:10px; }
+    .cart-item{ display:grid; grid-template-columns: 64px 1fr auto; gap:10px; align-items:center; padding:10px; border:1px solid rgba(255,255,255,.06); background: var(--elev); border-radius: 12px; }
+    .cart-item .thumb{ aspect-ratio:1; border-radius:10px; }
+    .cart-item .name{ font-weight:600; }
+    .cart-item .muted{ font-size:12px; }
+    .cart-item .qty{ justify-self:end; }
+    .panel footer{ border-top:1px solid rgba(255,255,255,.06); padding:14px; display:flex; flex-direction:column; gap:10px; }
+    .summary{ display:grid; grid-template-columns: 1fr auto; gap:8px; font-size:14px; }
+    .summary b{ text-align:right; }
+
+    /* Checkout */
+    .checkout{ display:none; padding: 24px 0 60px; }
+    .checkout.active{ display:block; }
+    .cards{ display:grid; grid-template-columns: 1.1fr .9fr; gap:16px; }
+    @media (max-width: 980px){ .cards{ grid-template-columns: 1fr; } }
+    .surface{ background: var(--card); border:1px solid rgba(255,255,255,.08); border-radius: var(--radius); padding:18px; box-shadow: var(--shadow); }
+    .surface h3{ margin:0 0 8px; }
+    .field{ display:flex; flex-direction:column; gap:6px; }
+    .field input, .field select, .field textarea{ background: var(--elev); border:1px solid rgba(255,255,255,.08); color:var(--text); padding:12px; border-radius: 12px; outline:none; }
+    .field input:focus, .field select:focus, .field textarea:focus{ box-shadow: var(--ring); border-color: rgba(37,99,235,.45); }
+    .grid-2{ display:grid; grid-template-columns: repeat(2, 1fr); gap:12px; }
+    .grid-3{ display:grid; grid-template-columns: repeat(3, 1fr); gap:12px; }
+
+    .note{ font-size:12px; color:var(--muted); }
+
+    /* Toast */
+    .toast{ position:fixed; bottom:14px; left:50%; transform:translateX(-50%) translateY(30px); opacity:0; transition:.3s; background: var(--elev); border:1px solid rgba(255,255,255,.08); color:var(--text); padding:12px 14px; border-radius:12px; box-shadow: var(--shadow); z-index:60; }
+    .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+    /* Order modal */
+    .modal{ position:fixed; inset:0; display:none; place-items:center; background: rgba(0,0,0,.65); z-index:70; }
+    .modal.open{ display:grid; }
+    .modal .box{ background: var(--card); border:1px solid rgba(255,255,255,.08); border-radius: 16px; padding: 20px; width:min(520px, 94%); text-align:center; box-shadow: var(--shadow); }
+    .order-id{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; background: var(--elev); padding:6px 10px; border-radius:10px; border:1px solid rgba(255,255,255,.08); }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav" aria-label="Main">
+      <div class="logo" aria-label="Book Market home">
+        <div class="emblem" aria-hidden="true"> 
+          <!-- book mark icon -->
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M6 4h9a3 3 0 013 3v13l-4.5-3-4.5 3V7a3 3 0 00-3-3z" stroke="white" stroke-width="1.5" fill="none"/>
+          </svg>
+        </div>
+        <a href="#"><span>Book</span><span style="opacity:.7">&nbsp;Market</span></a>
+      </div>
+      <div class="search" role="search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M21 21l-4.2-4.2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.5"/></svg>
+        <input id="search" type="search" placeholder="Search books…" aria-label="Search products" />
+      </div>
+      <div class="actions">
+        <button class="btn secondary" id="filterBtn" aria-expanded="false">All</button>
+        <button class="btn cart-btn" id="openCart" aria-haspopup="dialog" aria-controls="cartDrawer">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 3h2l2 12h10l2-8H6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Cart <span class="badge" id="cartCount">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" id="main">
+    <section class="hero">
+      <div class="hero-card">
+        <h1>Stories Worth Losing Sleep Over</h1>
+        <p>Curated reads across fiction, sci‑fi, and tech. Free shipping over ₱1,500. Use code <b>READMORE10</b> for 10% off.</p>
+        <div style="display:flex; gap:10px; flex-wrap:wrap">
+          <a href="#products" class="btn">Browse Bestsellers</a>
+          <button class="btn secondary" id="gotoCheckout">Go to Checkout</button>
+        </div>
+      </div>
+      <div class="hero-card" role="img" aria-label="Promotional artwork: blue gradient with book icon">
+        <div class="thumb" style="border-radius:12px; height:260px;">
+          <svg width="96" height="96" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M4 6.5A2.5 2.5 0 016.5 4H19v15H6.5A2.5 2.5 0 014 16.5V6.5z" stroke="currentColor" stroke-width="1.4"/>
+            <path d="M8 7h8M8 10h8M8 13h6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <p class="muted" style="margin:8px 0 0">All visuals are CSS/SVG for speed. Swap in real cover images later.</p>
+      </div>
+    </section>
+
+    <section id="products" aria-labelledby="productsTitle" style="padding: 10px 0 36px;">
+      <div class="row" style="margin-bottom:10px">
+        <h2 id="productsTitle" style="margin:0">Books</h2>
+        <div class="muted" id="resultCount"></div>
+      </div>
+      <div class="grid" id="grid"></div>
+    </section>
+
+    <section id="checkout" class="checkout" aria-labelledby="checkoutTitle">
+      <h2 id="checkoutTitle" style="margin: 0 0 12px;">Checkout</h2>
+      <div class="cards">
+        <form id="checkoutForm" class="surface" novalidate>
+          <h3>Customer</h3>
+          <div class="grid-2">
+            <div class="field"><label for="firstName">First name</label><input id="firstName" required /></div>
+            <div class="field"><label for="lastName">Last name</label><input id="lastName" required /></div>
+          </div>
+          <div class="field"><label for="email">Email</label><input id="email" type="email" required placeholder="you@example.com" /></div>
+          <div class="field"><label for="phone">Phone (optional)</label><input id="phone" type="tel" placeholder="09xx…" /></div>
+
+          <h3 style="margin-top:16px">Shipping</h3>
+          <div class="field"><label for="address">Address</label><input id="address" required placeholder="Street, Barangay" /></div>
+          <div class="grid-3">
+            <div class="field"><label for="city">City</label><input id="city" required /></div>
+            <div class="field"><label for="province">Province</label><input id="province" required /></div>
+            <div class="field"><label for="zip">ZIP</label><input id="zip" required pattern="\d{4}" placeholder="0000" /></div>
+          </div>
+
+          <h3 style="margin-top:16px">Payment</h3>
+          <div class="grid-2">
+            <div class="field"><label for="card">Card number</label><input id="card" inputmode="numeric" autocomplete="cc-number" placeholder="4242 4242 4242 4242" required /></div>
+            <div class="field"><label for="exp">Expiry</label><input id="exp" placeholder="MM/YY" required /></div>
+          </div>
+          <div class="grid-2">
+            <div class="field"><label for="nameOnCard">Name on card</label><input id="nameOnCard" required /></div>
+            <div class="field"><label for="cvc">CVC</label><input id="cvc" placeholder="123" required /></div>
+          </div>
+          <p class="note">Front‑end demo only—no real payments are processed.</p>
+          <button class="btn" type="submit" style="width:100%; margin-top:10px">Place order</button>
+        </form>
+
+        <aside class="surface">
+          <h3>Order summary</h3>
+          <div id="summaryItems" style="display:flex; flex-direction:column; gap:10px; margin:10px 0"></div>
+          <div class="field" style="margin:10px 0">
+            <label for="promo">Promo code</label>
+            <div class="row">
+              <input id="promo" placeholder="READMORE10" />
+              <button class="btn secondary" id="applyPromo">Apply</button>
+            </div>
+            <small class="note">Use <b>READMORE10</b> for 10% off.</small>
+          </div>
+          <div class="summary" style="margin-top:8px">
+            <span>Subtotal</span><b id="sumSubtotal">—</b>
+            <span>Discount</span><b id="sumDiscount">—</b>
+            <span>Shipping</span><b id="sumShipping">—</b>
+            <span><b>Total</b></span><b id="sumTotal">—</b>
+          </div>
+          <button class="btn" id="checkoutCartBtn" style="width:100%; margin-top:14px">Return to cart</button>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <!-- Cart Drawer -->
+  <div class="drawer" id="cartDrawer" role="dialog" aria-modal="true" aria-label="Shopping cart">
+    <div class="backdrop" id="drawerClose"></div>
+    <div class="panel">
+      <header class="row">
+        <strong>Cart</strong>
+        <button class="btn secondary" id="closeCart">Close</button>
+      </header>
+      <div class="items" id="cartItems"></div>
+      <footer>
+        <div class="summary">
+          <span>Subtotal</span><b id="cartSubtotal">—</b>
+          <span>Shipping</span><b id="cartShipping">—</b>
+          <span><b>Total</b></span><b id="cartTotal">—</b>
+        </div>
+        <button class="btn" id="goCheckout">Checkout</button>
+      </footer>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">Added to cart</div>
+
+  <!-- Order Success Modal -->
+  <div class="modal" id="orderModal" role="dialog" aria-modal="true" aria-label="Order placed">
+    <div class="box">
+      <h3>📘 Order Confirmed!</h3>
+      <p>Thank you for shopping at Book Market.</p>
+      <p>Your order ID is <span class="order-id" id="orderId"></span></p>
+      <div style="display:flex; gap:10px; justify-content:center; margin-top:10px">
+        <button class="btn" id="continueShopping">Continue shopping</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ------- Demo Book Data ---------
+    const PRODUCTS = [
+      {id:'bk-algorithms', name:'Grokked Algorithms (2nd Ed.)', author:'A. Nguyen', price: 1199, tag:'tech', desc:'Friendly guide to CS fundamentals.', rating:4.9},
+      {id:'bk-dreamers', name:'City of Dreamers', author:'L. Santos', price: 699, tag:'fiction', desc:'A sweeping multi‑generation epic.', rating:4.6},
+      {id:'bk-starry', name:'Under a Starry Sea', author:'M. Cruz', price: 549, tag:'fiction', desc:'Love, loss, and lighthouse lore.', rating:4.7},
+      {id:'bk-ai', name:'AI for Pragmatists', author:'K. Dizon', price: 1299, tag:'tech', desc:'Build real AI systems without math‑phobia.', rating:4.8},
+      {id:'bk-rocket', name:'Rockets & Blueprints', author:'P. Reyes', price: 799, tag:'scifi', desc:'Hard‑sci‑fi adventure to Titan.', rating:4.5},
+      {id:'bk-habits', name:'Atomic Habits PH Edition', author:'J. Clear', price: 950, tag:'nonfiction', desc:'Tiny changes, remarkable results.', rating:4.8},
+      {id:'bk-ux', name:'Designing for Delight', author:'R. Garcia', price: 899, tag:'nonfiction', desc:'Practical UX with real case studies.', rating:4.6},
+      {id:'bk-poems', name:'Poems From The Archipelago', author:'Various', price: 399, tag:'nonfiction', desc:'Modern Filipino poetry collection.', rating:4.4},
+    ];
+
+    // ------- State ---------
+    const state = {
+      cart: JSON.parse(localStorage.getItem('cart_books')||'{}'),
+      promo: localStorage.getItem('promo_books')||'',
+      filter: 'all',
+      search: ''
+    };
+
+    const peso = new Intl.NumberFormat('en-PH', {style:'currency', currency:'PHP', maximumFractionDigits:0});
+
+    // ------- DOM Helpers ---------
+    const $ = sel => document.querySelector(sel);
+    const $$ = sel => document.querySelectorAll(sel);
+
+    function toast(msg){ const el = $('#toast'); el.textContent = msg; el.classList.add('show'); setTimeout(()=> el.classList.remove('show'), 1500); }
+    function save(){ localStorage.setItem('cart_books', JSON.stringify(state.cart)); localStorage.setItem('promo_books', state.promo||''); }
+
+    // ------- Render Products ---------
+    function renderProducts(){
+      const grid = $('#grid');
+      const q = state.search.trim().toLowerCase();
+      const filtered = PRODUCTS.filter(p => (state.filter==='all' || p.tag===state.filter) && (!q || p.name.toLowerCase().includes(q) || p.author.toLowerCase().includes(q)));
+      $('#resultCount').textContent = `${filtered.length} item${filtered.length!==1?'s':''}`;
+      grid.innerHTML = filtered.map(p=> `
+        <article class="card" data-id="${p.id}">
+          <div class="thumb">${svgBook()}</div>
+          <div class="content">
+            <div class="title">${p.name}</div>
+            <div class="muted">by ${p.author}</div>
+            <div class="row">
+              <div class="price">${peso.format(p.price)}</div>
+              <div class="muted" aria-label="rating">★ ${p.rating}</div>
+            </div>
+            <div class="muted">${p.desc}</div>
+            <div class="row" style="margin-top:6px">
+              <div class="qty">
+                <button aria-label="decrease quantity" data-qty="-1">−</button>
+                <input type="number" min="1" value="1" style="width:54px; text-align:center; background:var(--elev); border:1px solid rgba(255,255,255,.07); color:var(--text); padding:6px; border-radius:8px" />
+                <button aria-label="increase quantity" data-qty="1">+</button>
+              </div>
+              <button class="btn" data-add>Add to cart</button>
+            </div>
+          </div>
+        </article>`).join('');
+
+      // attach events for new cards
+      $$('#grid [data-qty]').forEach(btn => btn.addEventListener('click', e=>{
+        const wrap = e.target.closest('.qty'); const input = wrap.querySelector('input');
+        const delta = parseInt(e.target.dataset.qty,10); input.value = Math.max(1, parseInt(input.value||'1',10) + delta);
+      }));
+
+      $$('#grid [data-add]').forEach(btn => btn.addEventListener('click', e=>{
+        const card = e.target.closest('.card');
+        const id = card.dataset.id; const qty = parseInt(card.querySelector('input').value||'1',10);
+        addToCart(id, qty); toast('Added to cart');
+      }));
+    }
+
+    function svgBook(){
+      return `<svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 6.5A2.5 2.5 0 016.5 4H19v15H6.5A2.5 2.5 0 014 16.5V6.5z" stroke="currentColor" opacity=".8"/>
+        <path d="M8 7h8M8 10h8M8 13h6" stroke="currentColor" opacity=".8" stroke-linecap="round"/>
+      </svg>`
+    }
+
+    // ------- Cart Logic ---------
+    function addToCart(id, qty=1){ state.cart[id] = (state.cart[id]||0) + qty; save(); updateCartBadge(); renderCart(); renderSummary(); }
+    function removeFromCart(id){ delete state.cart[id]; save(); updateCartBadge(); renderCart(); renderSummary(); }
+    function setQty(id, qty){ if(qty<=0){ removeFromCart(id); } else { state.cart[id] = qty; } save(); renderCart(); renderSummary(); }
+
+    function getLineItems(){ return Object.entries(state.cart).map(([id, qty])=>{ const p = PRODUCTS.find(x=>x.id===id); return { ...p, qty, line: p.price*qty }; }); }
+
+    function totals(){
+      const items = getLineItems();
+      const subtotal = items.reduce((a,b)=> a + b.line, 0);
+      const discount = (state.promo.toUpperCase()==='READMORE10') ? subtotal*0.10 : 0;
+      const after = Math.max(0, subtotal - discount);
+      const shipping = after >= 1500 || after===0 ? 0 : 120; // free over 1500 or empty cart
+      const total = after + shipping;
+      return {subtotal, discount, shipping, total};
+    }
+
+    function updateCartBadge(){ const count = Object.values(state.cart).reduce((a,b)=>a+b,0); $('#cartCount').textContent = count; }
+
+    function renderCart(){
+      const wrap = $('#cartItems');
+      const items = getLineItems();
+      wrap.innerHTML = items.length? items.map(it => `
+        <div class="cart-item" data-id="${it.id}">
+          <div class="thumb">${svgBook()}</div>
+          <div>
+            <div class="name">${it.name}</div>
+            <div class="muted">${peso.format(it.price)} × ${it.qty}</div>
+          </div>
+          <div class="qty">
+            <button data-act="dec">−</button>
+            <input type="number" min="1" value="${it.qty}" style="width:54px; text-align:center; background:var(--bg); border:1px solid rgba(255,255,255,.07); color:var(--text); padding:6px; border-radius:8px" />
+            <button data-act="inc">+</button>
+            <button class="btn secondary" data-act="rm" style="margin-left:8px">Remove</button>
+          </div>
+        </div>`).join('') : `<p class="muted">Your cart is empty. Add some reads!</p>`;
+
+      const t = totals();
+      $('#cartSubtotal').textContent = peso.format(t.subtotal);
+      $('#cartShipping').textContent = peso.format(t.shipping);
+      $('#cartTotal').textContent = peso.format(t.total);
+
+      // wire up qty controls
+      $$('#cartItems .cart-item').forEach(row=>{
+        const id = row.dataset.id; const input = row.querySelector('input');
+        row.querySelector('[data-act="dec"]').onclick = ()=> setQty(id, parseInt(input.value,10)-1);
+        row.querySelector('[data-act="inc"]').onclick = ()=> setQty(id, parseInt(input.value,10)+1);
+        row.querySelector('[data-act="rm"]').onclick = ()=> removeFromCart(id);
+        input.addEventListener('change', ()=> setQty(id, Math.max(1, parseInt(input.value||'1',10))));
+      });
+    }
+
+    // ------- Summary on Checkout ---------
+    function renderSummary(){
+      const items = getLineItems();
+      const list = $('#summaryItems');
+      list.innerHTML = items.length ? items.map(it=>`<div class="row"><span class="muted">${it.name} × ${it.qty}</span><b>${peso.format(it.line)}</b></div>`).join('') : `<p class="muted">No items yet.</p>`;
+      const t = totals();
+      $('#sumSubtotal').textContent = peso.format(t.subtotal);
+      $('#sumDiscount').textContent = t.discount? '−'+peso.format(t.discount): peso.format(0);
+      $('#sumShipping').textContent = peso.format(t.shipping);
+      $('#sumTotal').textContent = peso.format(t.total);
+      $('#promo').value = state.promo || '';
+    }
+
+    // ------- UI Toggles ---------
+    const drawer = $('#cartDrawer');
+    function openDrawer(){ drawer.classList.add('open'); }
+    function closeDrawer(){ drawer.classList.remove('open'); }
+
+    // ------- Events ---------
+    $('#openCart').addEventListener('click', openDrawer);
+    $('#closeCart').addEventListener('click', closeDrawer);
+    $('#drawerClose').addEventListener('click', closeDrawer);
+    $('#goCheckout').addEventListener('click', ()=>{ closeDrawer(); showCheckout(true); });
+    $('#checkoutCartBtn').addEventListener('click', ()=>{ showCheckout(false); openDrawer(); });
+
+    $('#gotoCheckout').addEventListener('click', ()=> showCheckout(true));
+
+    $('#search').addEventListener('input', e=>{ state.search = e.target.value; renderProducts(); });
+
+    const filterBtn = $('#filterBtn');
+    const tags = ['all','fiction','nonfiction','scifi','tech'];
+    filterBtn.addEventListener('click', ()=>{
+      const idx = tags.indexOf(state.filter); state.filter = tags[(idx+1)%tags.length];
+      filterBtn.textContent = state.filter.charAt(0).toUpperCase() + state.filter.slice(1);
+      renderProducts();
+    });
+
+    $('#applyPromo').addEventListener('click', ()=>{
+      state.promo = $('#promo').value.trim(); save(); renderSummary(); toast(state.promo.toUpperCase()==='READMORE10' ? 'Promo applied: 10% off' : 'Promo not valid');
+    });
+
+    // Checkout form submit (fake)
+    $('#checkoutForm').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      if(Object.keys(state.cart).length===0){ toast('Add items before checking out'); return; }
+      const requiredIds = ['firstName','lastName','email','address','city','province','zip','card','exp','nameOnCard','cvc'];
+      for(const id of requiredIds){ const el = $('#'+id); if(!el.value.trim()){ el.focus(); toast('Please complete all required fields'); return; } }
+      if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test($('#email').value)){ toast('Enter a valid email'); return; }
+      if(!/^\d{4}$/.test($('#zip').value)){ toast('ZIP must be 4 digits'); return; }
+
+      const t = totals();
+      const orderId = 'BM-' + Math.random().toString(36).slice(2,8).toUpperCase();
+      $('#orderId').textContent = orderId + ' · ' + peso.format(t.total);
+      $('#orderModal').classList.add('open');
+      state.cart = {}; save(); updateCartBadge(); renderCart(); renderSummary();
+      showCheckout(false);
+    });
+
+    $('#continueShopping').addEventListener('click', ()=>{ $('#orderModal').classList.remove('open'); window.scrollTo({top: 0, behavior: 'smooth'}); });
+
+    function showCheckout(show){ $('#checkout').classList.toggle('active', !!show); document.getElementById('products').style.display = show? 'none':'block'; }
+
+    // Initial render
+    renderProducts(); updateCartBadge(); renderCart(); renderSummary();
+  </script>
+</body>
+</html>

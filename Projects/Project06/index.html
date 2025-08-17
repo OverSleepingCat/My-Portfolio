@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thesis Management System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <h1>ThesisTracker</h1>
+                <p>Academic Excellence Management</p>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="hero-section">
+                <h2>Welcome to Thesis Management System</h2>
+                <p>Streamline your academic research submissions and reviews</p>
+            </div>
+
+            <div class="access-cards">
+                <div class="card student-card">
+                    <div class="card-header">
+                        <h3>Student Portal</h3>
+                        <div class="icon student-icon">📚</div>
+                    </div>
+                    <p>Submit your thesis, track progress, and receive feedback from your supervisors.</p>
+                    <a href="student.html" class="btn btn-primary">Access Student Portal</a>
+                </div>
+
+                <div class="card admin-card">
+                    <div class="card-header">
+                        <h3>Admin Dashboard</h3>
+                        <div class="icon admin-icon">👨‍💼</div>
+                    </div>
+                    <p>Review submissions, manage students, and oversee the entire thesis process.</p>
+                    <button onclick="openAdminLogin()" class="btn btn-secondary">Admin Login</button>
+                </div>
+            </div>
+        </main>
+
+        <!-- Admin Login Modal -->
+        <div id="loginModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Admin Login</h3>
+                    <button class="close-btn" onclick="closeAdminLogin()">&times;</button>
+                </div>
+                <form id="loginForm" class="login-form">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </div>
+                </form>
+                <div class="demo-credentials">
+                    <p><strong>Demo Credentials:</strong></p>
+                    <p>Username: admin</p>
+                    <p>Password: admin123</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

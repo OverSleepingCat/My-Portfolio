@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Thesis Management</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header admin-header">
+            <div class="logo">
+                <h1>ThesisTracker</h1>
+                <p>Admin Dashboard</p>
+            </div>
+            <nav class="nav">
+                <span class="admin-info">Welcome, Admin</span>
+                <button onclick="logout()" class="btn btn-outline btn-sm">Logout</button>
+            </nav>
+        </header>
+
+        <main class="main-content">
+            <div class="dashboard-header">
+                <h2>Thesis Submissions Dashboard</h2>
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalSubmissions">0</div>
+                        <div class="stat-label">Total Submissions</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="draftSubmissions">0</div>
+                        <div class="stat-label">Drafts</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="finalSubmissions">0</div>
+                        <div class="stat-label">Final Submissions</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="revisionSubmissions">0</div>
+                        <div class="stat-label">Revisions</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filters-section">
+                <div class="filter-group">
+                    <select id="departmentFilter" onchange="filterSubmissions()">
+                        <option value="">All Departments</option>
+                        <option value="Computer Science">Computer Science</option>
+                        <option value="Engineering">Engineering</option>
+                        <option value="Business Administration">Business Administration</option>
+                        <option value="Psychology">Psychology</option>
+                        <option value="Biology">Biology</option>
+                        <option value="Mathematics">Mathematics</option>
+                    </select>
+                    <select id="typeFilter" onchange="filterSubmissions()">
+                        <option value="">All Types</option>
+                        <option value="Draft">Draft</option>
+                        <option value="Final">Final</option>
+                        <option value="Revision">Revision</option>
+                    </select>
+                    <input type="text" id="searchInput" placeholder="Search by name or title..." onkeyup="filterSubmissions()">
+                </div>
+            </div>
+
+            <div class="submissions-container">
+                <div id="noSubmissions" class="no-submissions">
+                    <div class="empty-icon">📋</div>
+                    <h3>No submissions yet</h3>
+                    <p>Thesis submissions will appear here once students submit their work.</p>
+                </div>
+                
+                <div id="submissionsList" class="submissions-grid"></div>
+            </div>
+
+            <!-- Thesis Detail Modal -->
+            <div id="thesisModal" class="modal">
+                <div class="modal-content thesis-modal">
+                    <div class="modal-header">
+                        <h3 id="modalTitle">Thesis Details</h3>
+                        <button class="close-btn" onclick="closeThesisModal()">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="thesisDetails"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-outline" onclick="closeThesisModal()">Close</button>
+                        <button class="btn btn-primary" onclick="downloadThesis()">Download Thesis</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>

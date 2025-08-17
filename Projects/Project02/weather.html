@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Weather App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #74ebd5, #ACB6E5);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+    }
+    .weather-app {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      text-align: center;
+      width: 320px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    input {
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      width: 80%;
+      margin-bottom: 10px;
+    }
+    button {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 10px;
+      background: #74ebd5;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    button:hover {
+      background: #57c6e1;
+    }
+    .weather-info {
+      margin-top: 15px;
+    }
+    .temp {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="weather-app">
+    <h2>🌤️ Weather App</h2>
+    <input type="text" id="cityInput" placeholder="Enter city name">
+    <button onclick="getWeather()">Get Weather</button>
+    <div class="weather-info" id="weatherInfo"></div>
+  </div>
+
+  <script>
+    async function getWeather() {
+      const city = document.getElementById("cityInput").value;
+      const apiKey = "e2795f7faed446cb94875041251708"; // Replace with your WeatherAPI.com key
+      const url = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}&aqi=no`;
+
+      if (!city) {
+        document.getElementById("weatherInfo").innerHTML = `<p style="color:red;">⚠️ Please enter a city</p>`;
+        return;
+      }
+
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error("City not found or API error");
+        }
+        const data = await response.json();
+
+        document.getElementById("weatherInfo").innerHTML = `
+          <p><strong>${data.location.name}, ${data.location.country}</strong></p>
+          <p class="temp">${data.current.temp_c}°C</p>
+          <p>${data.current.condition.text}</p>
+          <img src="https:${data.current.condition.icon}" alt="weather icon">
+          <p>💧 Humidity: ${data.current.humidity}%</p>
+          <p>🌬️ Wind: ${data.current.wind_kph} kph</p>
+        `;
+      } catch (error) {
+        document.getElementById("weatherInfo").innerHTML = `<p style="color:red;">❌ ${error.message}</p>`;
+      }
+    }
+  </script>
+</body>
+</html>
